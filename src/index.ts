@@ -4,6 +4,9 @@ import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import compression from "compression";
 import cors from "cors";
+import mongoose from "mongoose";
+
+import { secretConfig } from "./secretConfig";
 
 const app = express();
 
@@ -20,3 +23,7 @@ const server = http.createServer(app);
 server.listen(8080, () => {
     console.log("Server running on http://localhost:8080");
 })
+
+mongoose.Promise = Promise;
+mongoose.connect(secretConfig.MONGO_URL);
+mongoose.connection.on("error", (err: Error) => console.log(err));

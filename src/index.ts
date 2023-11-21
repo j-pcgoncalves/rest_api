@@ -6,6 +6,7 @@ import compression from "compression";
 import cors from "cors";
 import mongoose from "mongoose";
 
+import router from "./router";
 import { secretConfig } from "./secretConfig";
 
 const app = express();
@@ -27,3 +28,5 @@ server.listen(8080, () => {
 mongoose.Promise = Promise;
 mongoose.connect(secretConfig.MONGO_URL);
 mongoose.connection.on("error", (err: Error) => console.log(err));
+
+app.use("/", router());
